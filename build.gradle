@@ -1,0 +1,37 @@
+buildscript {
+  ext {
+    jett_version = '0.11.0'
+    logback_version = '1.1.3'
+    testng_version = '6.14.3'
+  }
+
+  repositories {
+    mavenCentral()
+  }
+
+}
+
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+wrapper {
+  distributionType = Wrapper.DistributionType.ALL
+}
+
+dependencies {
+  compile "net.sf.jett:jett-core:$jett_version"
+  compile "org.slf4j:slf4j-api:1.7.12"
+
+  runtime "ch.qos.logback:logback-classic:$logback_version"
+
+  // Test dependencies
+  testCompile "org.testng:testng:$testng_version"
+}
+
+//Delete application output directory on clean
+clean.doFirst {
+  delete "${rootDir}/output"
+}
